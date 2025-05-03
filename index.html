@@ -1,32 +1,34 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="zh">
 <head>
-  <title>骰子累计工具</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-    button { font-size: 20px; padding: 10px 20px; }
-    #result, #sum, #history { margin-top: 20px; font-size: 18px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>骰子累计工资计算器</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        button { padding: 10px 20px; font-size: 18px; }
+        #result { margin-top: 20px; font-size: 24px; }
+    </style>
 </head>
 <body>
-  <h1>骰子累计工具</h1>
-  <button onclick="rollDice()">摇骰子</button>
-  <div id="result">当前结果: -</div>
-  <div id="sum">累计总和: 0</div>
-  <div id="history">历史记录: </div>
+    <h1>骰子累计工资计算器</h1>
+    <p>每摇一次骰子（1–6），点数自动累计。平均每点 ≈ 0.57 元。</p>
+    <button id="rollBtn">摇骰子</button>
+    <div id="result">
+        <p>累计点数: <span id="total">0</span></p>
+        <p>换算工资: <span id="salary">0</span> 元</p>
+    </div><script>
+    let total = 0;
+    const perPoint = 0.57;
+    const rollBtn = document.getElementById('rollBtn');
+    const totalDisplay = document.getElementById('total');
+    const salaryDisplay = document.getElementById('salary');
 
-  <script>
-    let sum = 0;
-    let history = [];
+    rollBtn.addEventListener('click', () => {
+        const roll = Math.floor(Math.random() * 6) + 1;
+        total += roll;
+        totalDisplay.textContent = total;
+        salaryDisplay.textContent = (total * perPoint).toFixed(2);
+    });
+</script>
 
-    function rollDice() {
-      let roll = Math.floor(Math.random() * 6) + 1;
-      sum += roll;
-      history.push(roll);
-      document.getElementById('result').innerText = '当前结果: ' + roll;
-      document.getElementById('sum').innerText = '累计总和: ' + sum;
-      document.getElementById('history').innerText = '历史记录: ' + history.join(', ');
-    }
-  </script>
 </body>
 </html>
